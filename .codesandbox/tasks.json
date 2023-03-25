@@ -6,7 +6,7 @@
   "tasks": {
     "start": {
       "name": "Start Streamlit Frontend",
-      "command": "streamlit run registration_app.py",
+      "command": "streamlit run intro.py",
       "runAtStart": true,
 
       "preview": {
