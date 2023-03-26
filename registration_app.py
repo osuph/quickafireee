@@ -13,7 +13,7 @@ def register():
     import streamlit as st
 
     with cdesc.container():
-        st.markdown(open("REGISTRATION_HEADER.md").read(), unsafe_allow_html=True)
+        st.markdown(open("REGISTRATION_HEADER.md", encoding="utf-8").read(), unsafe_allow_html=True)
 
     with frm.container():
         reg_frm = frm.form("Registration")
@@ -37,7 +37,7 @@ def evaluation():
     passed_eval = False
 
     with cdesc.container():
-        st.markdown(open("EVALUATION.md").read(), unsafe_allow_html=True)
+        st.markdown(open("EVALUATION.md", encoding="utf-8").read(), unsafe_allow_html=True)
 
     # Quiz logic goes here
 
@@ -52,7 +52,7 @@ def evaluation():
             if st.button("Continue"):
                 register()
 
-cdesc.markdown(open("REGISTRATION_INTRO.md").read(), unsafe_allow_html=True)
+cdesc.markdown(open("REGISTRATION_INTRO.md", encoding="utf-8").read(), unsafe_allow_html=True)
 
 if intr_btn.button("Continue"):
     evaluation()

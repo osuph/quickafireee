@@ -11,6 +11,8 @@ aiohttp-cors = ">=0.7.0"
 redis = ">=3.5.3"
 gspread = ">=5.7.0"
 
+[dev-packages]
+pylint = ">=2.9.6"
 
 [requires]
 python_version = "3.8"
