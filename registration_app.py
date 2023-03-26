@@ -7,6 +7,17 @@ st.set_page_config(page_title="osu!Quickfire Registration", page_icon=":fire:")
 cdesc = st.empty()
 intr_btn = st.empty()
 frm = st.empty()
+current_page = st.session_state.get("current_page", "intro")
+
+def intro():
+    import streamlit as st
+
+    with cdesc.container():
+        st.markdown(open("REGISTRATION_INTRO.md", encoding="utf-8").read(), unsafe_allow_html=True)
+
+    with intr_btn.container():
+        if intr_btn.button("Continue"):
+            st.session_state.update({"current_page": "evaluation"})
 
 # BUG: This never gets called... oh well....
 def register():
@@ -45,14 +56,17 @@ def evaluation():
     with intr_btn.container():
         # HACK: This is for debugging purposes. Remove this once you have a working quiz logic
         if st.button("DEBUG_CONTINUE"):
-            register()
+            st.session_state.update({"current_page": "register"})
 
         if passed_eval:
             st.success("You passed the evaluation! You can now register for the tournament.")
             if st.button("Continue"):
-                register()
+                st.session_state.update({"current_page": "register"})
 
-cdesc.markdown(open("REGISTRATION_INTRO.md", encoding="utf-8").read(), unsafe_allow_html=True)
+page_flow = {
+    "intro": intro,
+    "evaluation": evaluation,
+    "register": register
+}
 
-if intr_btn.button("Continue"):
-    evaluation()
+page_flow[current_page]()
