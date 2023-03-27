@@ -16,7 +16,8 @@ with st.form("evaluation_form", clear_on_submit=True):
     df = pd.read_csv("evaluation.csv")
     # Get the questions, their choices and their correct answers
     questions = df["question"].tolist()
-    choices = df["choices"].tolist()
+    # This is comma separated, so we need to split it
+    choices = [choice.split(",") for choice in df["choices"].tolist()]
     correct_answers = df["correct answer"].tolist()
     user_quiz_answers = []
 
