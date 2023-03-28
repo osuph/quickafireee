@@ -12,20 +12,23 @@ st.markdown(no_sidebar_style, unsafe_allow_html=True)
 
 with st.form("evaluation_form", clear_on_submit=True):
     # Parse our CSV file
-    # TODO: Get this from a more reliable datasource
+    # TODO: Get this from a more reliable datasource, maybe google sheets?
     df = pd.read_csv("evaluation.csv")
     # Get the questions, their choices and their correct answers
     questions = df["question"].tolist()
     # This is comma separated, so we need to split it
-    choices = [choice.split(",") for choice in df["choices"].tolist()]
+    choices = df["choices"].tolist()
     correct_answers = df["correct answer"].tolist()
     user_quiz_answers = []
 
     # Enumarate the questions and choices
-    for i, (question, choice) in enumerate(zip(questions, choices)):
-        # Then generate a radio button for each question
-        user_answers = st.radio(question, choice, key=i)
-        user_quiz_answers.append(user_answers)
+    for question, choice in zip(questions, choices):
+        # Convert choices into a list
+        choice = choice.split(",")
+        # Ask the user the question
+        user_answer = st.radio(question, choice)
+        # Append the user's answer to the list
+        user_quiz_answers.append(user_answer)
 
     # Check if the user's answers are correct
     if st.form_submit_button("Submit"):
@@ -41,4 +44,4 @@ with st.form("evaluation_form", clear_on_submit=True):
             st.success("You passed the evaluation! You can now register for the tournament.")
             switch_page("register")
         else:
-            st.error("You did not pass the evaluation. Please try again.")
+            st.error("You got some answers wrong. Try again!.")
