@@ -1,5 +1,8 @@
 import streamlit as st
 
+st.set_page_config(page_title="osu!Quickfire Registration",
+    page_icon=":fire:", initial_sidebar_state="collapsed")
+
 # HACK: This is to get rid of the sidebar
 no_sidebar_style = """
     <style>
@@ -14,7 +17,7 @@ with open("REGISTRATION_HEADER.md", encoding="utf-8") as f:
 with st.form("registration_form"):
     # TODO: Autofill this from the OAuth Callback
     st.text_input("osu!username", st.session_state.get("osu_username", ""), 24)
-    st.text_input("Email", st.session_state.get("osu_email", "None"), 24)
+    st.text_input("Email", st.session_state.get("osu_email", ""), 24)
     st.text_input("osu!profile URL", st.session_state.get("osu_profile_url", ""), 24)
     st.text_input("Phone Number", "")
     st.multiselect("Days Attending", ["Day 1", "Day 2", "Day 3", "All Days"])

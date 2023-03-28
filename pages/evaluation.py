@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 from streamlit_extras.switch_page_button import switch_page
 
+st.set_page_config(page_title="osu!Quickfire Registration",
+    page_icon=":fire:", initial_sidebar_state="collapsed")
+
 # HACK: This is to get rid of the sidebar
 no_sidebar_style = """
     <style>
