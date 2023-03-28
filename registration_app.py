@@ -45,7 +45,7 @@ def retrieve_token(client_id, client_secret, code, redirect_uri):
         "redirect_uri": redirect_uri,
     })
 
-    return res.json()["access_token"]
+    return res.json["token_type"] + " " + res.json()["access_token"]
 
 
 # This is the client ID for the osu! API
