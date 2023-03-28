@@ -13,12 +13,14 @@ with open("REGISTRATION_HEADER.md", encoding="utf-8") as f:
 
 with st.form("registration_form"):
     # TODO: Autofill this from the OAuth Callback
-    st.text_input("osu!username", "", 24)
-    st.text_input("Email", "")
-    st.text_input("osu!profile URL", "")
+    st.text_input("osu!username", st.session_state.get("osu_username", "None"), 24)
+    st.text_input("Email", st.session_state.get("osu_email", "None"), 24)
+    st.text_input("osu!profile URL", st.session_state.get("osu_profile_url", "None"), 24)
     st.text_input("Phone Number", "")
     st.multiselect("Days Attending", ["Day 1", "Day 2", "Day 3", "All Days"])
-    st.checkbox("I consent to the collection of my data for the purposes of this event.")
+    st.checkbox(
+        "I consent to the collection of my data as per provisions of the"
+        "[Data Privacy Act of 2012](https://www.privacy.gov.ph/data-privacy-act-primer/).")
 
     if st.form_submit_button("Submit"):
         # Google forms logic goes here
