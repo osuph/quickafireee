@@ -67,7 +67,7 @@ auth_url = create_authorization_url(client_id, redirect_uri, scope)
 # This is the authorization code for the osu! API
 auth_code = st.experimental_get_query_params().get("code", None)
 # This is the access token for the osu! API
-access_token = retrieve_token(auth_code)
+access_token = retrieve_token(auth_code) or None
 
 # We technically don't need this but just in case someone tries to hotlink this page, they have to go through OAuth.
 if auth_code and access_token:
