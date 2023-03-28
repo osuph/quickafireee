@@ -13,10 +13,15 @@ no_sidebar_style = """
 """
 st.markdown(no_sidebar_style, unsafe_allow_html=True)
 
+with open("EVALUATION_HEADER.md", encoding="utf-8") as f:
+    st.markdown(f.read(), unsafe_allow_html=True)
+
 with st.form("evaluation_form", clear_on_submit=True):
     # Parse our CSV file
     # TODO: Get this from a more reliable datasource, maybe google sheets?
     df = pd.read_csv("evaluation.csv")
+    # Sample only 10 questions
+    df = df.sample(10)
     # Get the questions, their choices and their correct answers
     questions = df["question"].tolist()
     # This is comma separated, so we need to split it
