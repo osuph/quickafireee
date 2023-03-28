@@ -17,8 +17,8 @@ with open("REGISTRATION_HEADER.md", encoding="utf-8") as f:
 with st.form("registration_form"):
     # TODO: Autofill this from the OAuth Callback
     st.text_input("osu!username", st.session_state.get("osu_username", ""), 24)
-    st.text_input("Email", st.session_state.get("osu_email", ""), 24)
-    st.text_input("osu!profile URL", st.session_state.get("osu_profile_url", ""), 24)
+    st.text_input("Email", "", 24)
+    st.text_input("osu!profile URL", f"https://osu.ppy.sh/users/{st.session_state.get('osu_id', '')}")
     st.text_input("Phone Number", "")
     st.multiselect("Days Attending", ["Day 1", "Day 2", "Day 3", "All Days"])
     st.checkbox(
