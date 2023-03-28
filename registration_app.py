@@ -1,5 +1,7 @@
 import streamlit as st
 import os
+import requests
+import json
 from streamlit_extras.switch_page_button import switch_page
 
 st.set_page_config(page_title="osu!Quickfire Registration",
@@ -29,19 +31,38 @@ def authed_main():
         switch_page("evaluation") # type:ignore
 
 
+def retrieve_token(client_id, client_secret, code, redirect_uri):
+    """ Retrieves a token derived from the code sent by the osu! API """
+    res = requests.post("https://osu.ppy.sh/oauth/token", headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/x-www-form-urlencoded",
+    },
+    params={
+        "client_id": client_id,
+        "client_secret": client_secret,
+        "code": code,
+        "grant_type": "authorization_code",
+        "redirect_uri": redirect_uri,
+    })
+
+    return res.json()["access_token"]
+
+
 # This is the client ID for the osu! API
 client_id = os.environ.get("CLIENT_ID", 7270)
 # This is the redirect URI for the osu! API
-redirect_uri = os.environ.get("REDIRECT_URI") or "http://127.0.0.1:8501"
+redirect_uri = os.environ.get("REDIRECT_URI", "http://127.0.0.1:8501")
 # This is the scope for the osu! API
 scope = "identity"
 # This is the authorization URL for the osu! API
 auth_url = create_authorization_url(client_id, redirect_uri, scope)
 # This is the authorization code for the osu! API
 auth_code = st.experimental_get_query_params().get("code", None)
+# This is the access token for the osu! API
+access_token = retrieve_token(auth_code)
 
 # We technically don't need this but just in case someone tries to hotlink this page, they have to go through OAuth.
-if auth_code:
+if auth_code and access_token:
     authed_main()
 else:
     st.write(f"Please authorize this app to use your osu! account by clicking [here]({auth_url})")
