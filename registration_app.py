@@ -28,7 +28,7 @@ def authed_main():
         st.markdown(f.read(), unsafe_allow_html=True)
 
     if st.button("Continue"):
-        switch_page("evaluation") # type:ignore
+        switch_page("register") # type:ignore
 
 
 def retrieve_token(client_id, client_secret, code, redirect_uri):
@@ -47,6 +47,14 @@ def retrieve_token(client_id, client_secret, code, redirect_uri):
 
     return res.json["token_type"] + " " + res.json()["access_token"]
 
+def get_user_data(access_token):
+    """ Returns the user data from the osu! API """
+    res = requests.get("https://osu.ppy.sh/api/v2/me/osu", headers={
+        "Authorization": access_token,
+    })
+
+    return res.json()
+
 
 # This is the client ID for the osu! API
 client_id = os.environ.get("CLIENT_ID", 7270)
@@ -63,6 +71,10 @@ access_token = retrieve_token(auth_code)
 
 # We technically don't need this but just in case someone tries to hotlink this page, they have to go through OAuth.
 if auth_code and access_token:
+    st.session_state.osu_username = get_user_data(access_token)["username"]
+    st.session_state.osu_user_id = get_user_data(access_token)["id"]
+
+    # Run authed main
     authed_main()
 else:
     st.write(f"Please authorize this app to use your osu! account by clicking [here]({auth_url})")
