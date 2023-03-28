@@ -30,9 +30,9 @@ def authed_main():
 
 if __name__ == "__main__":
     # This is the client ID for the osu! API
-    client_id = 7270 or int(os.environ.get("CLIENT_ID"))
+    client_id = os.environ.get("CLIENT_ID", 7270)
     # This is the redirect URI for the osu! API
-    redirect_uri = "http://127.0.0.1:8501" or os.environ.get("REDIRECT_URI")
+    redirect_uri = os.environ.get("REDIRECT_URI") or "http://127.0.0.1:8501"
     # This is the scope for the osu! API
     scope = "public+identify"
     # This is the authorization URL for the osu! API
