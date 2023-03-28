@@ -28,22 +28,23 @@ def authed_main():
     if st.button("Continue"):
         switch_page("evaluation") # type:ignore
 
-if __name__ == "__main__":
-    # This is the client ID for the osu! API
-    client_id = os.environ.get("CLIENT_ID", 7270)
-    # This is the redirect URI for the osu! API
-    redirect_uri = os.environ.get("REDIRECT_URI") or "http://127.0.0.1:8501"
-    # This is the scope for the osu! API
-    scope = "public+identify"
-    # This is the authorization URL for the osu! API
-    auth_url = create_authorization_url(client_id, redirect_uri, scope)
-    # This is the authorization code for the osu! API
-    auth_code = st.experimental_get_query_params().get("code", None)
 
-    if auth_code:
-        authed_main()
-    else:
-        st.write(f"Please authorize this app to use your osu! account by clicking [here]({auth_url})")
-        st.write("You will be redirected to a page where you can authorize this app to access your osu! account.")
-        st.write("Once you have authorized this app, you will be redirected back to this page. Please click the button below to continue.")
-        st.write("If you are not redirected, please copy and paste the URL from your browser into the address bar of your browser.")
+# This is the client ID for the osu! API
+client_id = os.environ.get("CLIENT_ID", 7270)
+# This is the redirect URI for the osu! API
+redirect_uri = os.environ.get("REDIRECT_URI") or "http://127.0.0.1:8501"
+# This is the scope for the osu! API
+scope = "public+identify"
+# This is the authorization URL for the osu! API
+auth_url = create_authorization_url(client_id, redirect_uri, scope)
+# This is the authorization code for the osu! API
+auth_code = st.experimental_get_query_params().get("code", None)
+
+# We technically don't need this but just in case someone tries to hotlink this page, they have to go through OAuth.
+if auth_code:
+    authed_main()
+else:
+    st.write(f"Please authorize this app to use your osu! account by clicking [here]({auth_url})")
+    st.write("You will be redirected to a page where you can authorize this app to access your osu! account.")
+    st.write("Once you have authorized this app, you will be redirected back to this page. Please click the button below to continue.")
+    st.write("If you are not redirected, please copy and paste the URL from your browser into the address bar of your browser.")
