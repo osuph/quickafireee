@@ -34,7 +34,7 @@ client_id = os.environ.get("CLIENT_ID", 7270)
 # This is the redirect URI for the osu! API
 redirect_uri = os.environ.get("REDIRECT_URI") or "http://127.0.0.1:8501"
 # This is the scope for the osu! API
-scope = "public+identify"
+scope = "identity"
 # This is the authorization URL for the osu! API
 auth_url = create_authorization_url(client_id, redirect_uri, scope)
 # This is the authorization code for the osu! API
