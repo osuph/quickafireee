@@ -1,4 +1,8 @@
 import streamlit as st
+import pandas as pd
+from sheet_manager import sheet_manager
+from sheet_manager import servsecrets
+from sheet_manager import generator
 
 st.set_page_config(page_title="osu!Quickfire Registration",
     page_icon=":fire:", initial_sidebar_state="collapsed")
@@ -29,4 +33,30 @@ with st.form("registration_form"):
 
     if st.form_submit_button("Submit"):
         # Google forms logic goes here
+        manager = sheet_manager.SheetManager(
+            creds = servsecrets.service_acct_creds,
+            sheets_key = st.secrets.GSheets.sheets_key
+        )
+
+        data_dict = {
+            'date_created':[generator.generate_current_time()],
+            'email':[email],
+            'osu_username':[osu_username],
+            'days_attending':[days_attending],
+            'has_consented':True
+        }
+
+        data_dict['reg_id'] = generator.generate_reg_id(
+            str_input = ''.join(
+                [
+                    data_dict['date_created'],
+                    email,
+                    osu_username,
+                    days_attending
+                ]
+            )
+        )
+
+        manager.push(sheet_number=0, data=pd.DataFrame(data_dict))
+
         st.success("Thank you for registering! The tournament staff will get in touch with you soon.")
