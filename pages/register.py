@@ -28,35 +28,38 @@ with st.form("registration_form"):
         conquest_proof = st.text_input("Proof of Attendance (Must be a Google Drive Link)", "")
         days_attending = st.multiselect("Days Attending", ["Day 1", "Day 2", "Day 3", "All Days"])
         phone_number = st.text_input("Phone Number", "")
-    st.checkbox(
+    has_contented = st.checkbox(
         "I consent to the collection of my data as per provisions of the Data Privacy Act of 2012.")
 
     if st.form_submit_button("Submit"):
-        # Google forms logic goes here
-        manager = sheet_manager.SheetManager(
-            creds = servsecrets.service_acct_creds,
-            sheets_key = st.secrets.GSheets.sheets_key
-        )
-
-        data_dict = {
-            'date_created':[generator.generate_current_time()],
-            'email':[email],
-            'osu_username':[osu_username],
-            'days_attending':[days_attending],
-            'has_consented':True
-        }
-
-        data_dict['reg_id'] = generator.generate_reg_id(
-            str_input = ''.join(
-                [
-                    data_dict['date_created'],
-                    email,
-                    osu_username,
-                    days_attending
-                ]
+        if not has_contented:
+            st.error("You must consent to the collection of your data.")
+        else:
+            # Google forms logic goes here
+            manager = sheet_manager.SheetManager(
+                creds = servsecrets.service_acct_creds,
+                sheets_key = st.secrets.GSheets.sheets_key
             )
-        )
 
-        manager.push(sheet_number=0, data=pd.DataFrame(data_dict))
+            data_dict = {
+                'date_created':[generator.generate_current_time()],
+                'email':[email],
+                'osu_username':[osu_username],
+                'days_attending':[days_attending],
+                'has_consented':True
+            }
 
-        st.success("Thank you for registering! The tournament staff will get in touch with you soon.")
+            data_dict['reg_id'] = generator.generate_reg_id(
+                str_input = ''.join(
+                    [
+                        data_dict['date_created'],
+                        email,
+                        osu_username,
+                        days_attending
+                    ]
+                )
+            )
+
+            manager.push(sheet_number=0, data=pd.DataFrame(data_dict))
+            st.success("Thank you for registering! The tournament staff will get in touch with you soon.")
+

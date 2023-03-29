@@ -15,7 +15,7 @@ no_sidebar_style = """
 st.markdown(no_sidebar_style, unsafe_allow_html=True)
 
 # To check if we're using this for a LAN party
-st.session_state["CONQUEST_MODE"]= bool(os.environ.get("CONQUEST_MODE", False))
+st.session_state["CONQUEST_MODE"]= os.environ.get("CONQUEST_MODE", False)
 
 # PAGE SETUP ENDS HERE
 
