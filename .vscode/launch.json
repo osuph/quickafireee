@@ -16,6 +16,11 @@
             "name": "Python: Debug Streamlit Application",
             "type": "python",
             "request": "launch",
+            "env": {
+                "CLIENT_ID" : "",
+                "CLIENT_SECRET": "",
+                "CONQUEST_MODE": "true",
+            },
             "module": "streamlit",
             "args": [
                 "run",
