@@ -19,7 +19,8 @@
             "env": {
                 "CLIENT_ID" : "",
                 "CLIENT_SECRET": "",
-                "CONQUEST_MODE": "true",
+                "CONQUEST_MODE": "",
+                "REDIRECT_URI": ""
             },
             "module": "streamlit",
             "args": [

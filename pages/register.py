@@ -24,9 +24,12 @@ with st.form("registration_form"):
         conquest_proof = st.text_input("Proof of Attendance (Must be a Google Drive Link)", "")
         days_attending = st.multiselect("Days Attending", ["Day 1", "Day 2", "Day 3", "All Days"])
         phone_number = st.text_input("Phone Number", "")
-    st.checkbox(
+    has_contented = st.checkbox(
         "I consent to the collection of my data as per provisions of the Data Privacy Act of 2012.")
 
     if st.form_submit_button("Submit"):
-        # Google forms logic goes here
-        st.success("Thank you for registering! The tournament staff will get in touch with you soon.")
+        if not has_contented:
+            st.error("You must consent to the collection of your data.")
+        else:
+            # Google forms logic goes here
+            st.success("Thank you for registering! The tournament staff will get in touch with you soon.")
