@@ -1,6 +1,6 @@
 FROM python:latest
 
-RUN apt update &&  apt -y install redis
+RUN pip install pipenv
 
 USER root
 
