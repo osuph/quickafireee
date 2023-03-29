@@ -162,3 +162,7 @@ cython_debug/
 # Redis
 # Sometimes Redis outputs some dumps which we don't want to ship with us
 dump.rdb
+
+# Streamlit
+# Streamlit generates a config file that we don't want to ship with us
+.streamlit/secrets.toml
