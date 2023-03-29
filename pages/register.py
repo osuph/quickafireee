@@ -1,5 +1,4 @@
 import streamlit as st
-import os
 
 st.set_page_config(page_title="osu!Quickfire Registration",
     page_icon=":fire:", initial_sidebar_state="collapsed")
@@ -16,7 +15,6 @@ with open("REGISTRATION_HEADER.md", encoding="utf-8") as f:
     st.markdown(f.read(), unsafe_allow_html=True)
 
 with st.form("registration_form"):
-    # TODO: Autofill this from the OAuth Callback
     st.text_input("osu!username", st.session_state.get("osu_username", ""), 24)
     st.text_input("Email", "", 24)
     st.text_input("osu!profile URL", f"https://osu.ppy.sh/users/{st.session_state.get('osu_user_id', '')}")
