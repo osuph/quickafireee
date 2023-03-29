@@ -26,16 +26,32 @@ def create_authorization_url(client_id, redirect_uri, scope):
 @st.cache_data
 def retrieve_token(client_id, client_secret, code, redirect_uri):
     """ Retrieves a token derived from the code sent by the osu! API """
-    res = requests.post("https://osu.ppy.sh/oauth/token",timeout=2048, headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-    },
-    data=f"client_id={client_id}"
-        + f"&client_secret={client_secret}"
-        + f"&code={code[0]}"
-        + "&grant_type=authorization_code"
-        + f"&redirect_uri={redirect_uri}"
-    )
+    data = {
+        "client_id": client_id,
+        "client_secret": client_secret,
+        "code": code[0],
+        "grant_type": "authorization_code",
+        "redirect_uri": redirect_uri,
+    }
+
+    print(data)
+
+    res = requests.post("https://osu.ppy.sh/oauth/token", data=data)
+    print(res.status_code)
+    assert res.status_code == 200
+    print(res.json())
+    return res.json()["access_token"]
+
+    # res = requests.post("https://osu.ppy.sh/oauth/token",timeout=2048, headers = {
+    #     "Accept": "application/json",
+    #     "Content-Type": "application/x-www-form-urlencoded"
+    # },
+    # data=f"client_id={client_id}"
+    #     + f"&client_secret={client_secret}"
+    #     + f"&code={code[0]}"
+    #     + "&grant_type=authorization_code"
+    #     + f"&redirect_uri={redirect_uri}"
+    # )
 
     return res.json()["access_token"]
 
