@@ -1,13 +1,11 @@
-# fly.toml file generated for sayori on 2023-03-20T11:05:23Z
-
-app = "sayori"
-kill_signal = "SIGINT"
+app = "quickafireee"
+kill_signal = "SIGKILL"
 kill_timeout = 5
 primary_region = "hkg"
 processes = []
 
 [build]
-  dockerfile="flyctl.dockerfile"
+  builder="heroku/buildpacks:18"
 
 [env]
   PORT = "8080"
