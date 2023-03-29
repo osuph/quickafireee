@@ -34,25 +34,8 @@ def retrieve_token(client_id, client_secret, code, redirect_uri):
         "redirect_uri": redirect_uri,
     }
 
-    print(data)
-
     res = requests.post("https://osu.ppy.sh/oauth/token", data=data)
-    print(res.status_code)
     assert res.status_code == 200
-    print(res.json())
-    return res.json()["access_token"]
-
-    # res = requests.post("https://osu.ppy.sh/oauth/token",timeout=2048, headers = {
-    #     "Accept": "application/json",
-    #     "Content-Type": "application/x-www-form-urlencoded"
-    # },
-    # data=f"client_id={client_id}"
-    #     + f"&client_secret={client_secret}"
-    #     + f"&code={code[0]}"
-    #     + "&grant_type=authorization_code"
-    #     + f"&redirect_uri={redirect_uri}"
-    # )
-
     return res.json()["access_token"]
 
 @st.cache_data
@@ -70,7 +53,7 @@ auth_code = st.experimental_get_query_params().get("code")
 client_id = os.environ.get("CLIENT_ID", 7270)
 client_secret = os.environ.get("CLIENT_SECRET", None)
 redirect_uri = os.environ.get("REDIRECT_URI", "http://127.0.0.1:8501/")
-scope = "public+identify"
+scope = "identify"
 auth_url = create_authorization_url(client_id, redirect_uri, scope)
 
 # We technically don't need this but just in case someone tries to hotlink this page, they have to go through OAuth.
