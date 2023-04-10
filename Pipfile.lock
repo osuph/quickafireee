@@ -1510,11 +1510,11 @@
         },
         "streamlit-extras": {
             "hashes": [
-                "sha256:1ef92c68758bdbf80cc0ee0f7a73f78713ef484754ab8eaebf325cbc3ee51023",
-                "sha256:33726459e937abcfd639cd0be92979e23091b8180b364855f9637607ccf73274"
+                "sha256:52a8cb3a4394735ee873c92c95fabf56d84cc2400ed0617bbc8b8259c0560276",
+                "sha256:eea7c7bca24dcb2a6cf26e8990c2105d20ac7773fb253452ce5ed665cc032c98"
             ],
             "index": "pypi",
-            "version": "==0.2.6"
+            "version": "==0.2.7"
         },
         "streamlit-faker": {
             "hashes": [
