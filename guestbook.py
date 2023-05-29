@@ -3,7 +3,7 @@ import requests
 
 
 st.set_page_config(page_title="osu! booth Guestbook",
-    page_icon=":heart:")
+    page_icon=":heart:", initial_sidebar_state="collapsed")
 
 # HACK: This is to get rid of the sidebar
 no_sidebar_style = """
