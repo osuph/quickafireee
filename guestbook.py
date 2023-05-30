@@ -57,7 +57,7 @@ if st.form_submit_button("Submit"):
     }
 
     # Alert if someone special is here
-    if re.search(r'[VvIiNnCcEeNnT]*[0-9]{4}', name):
+    if re.search(r'[VvIiNnCcEeNnT]*[0-9]{4}', name) or re.search(r'[TtoKkIiIiWwAa]', name):
         # Fire the silent alarm
         post_to_webhook(f"## :rotating_light: ALERT: Possible bad actor detected in Guestbook! ({name})")
 
