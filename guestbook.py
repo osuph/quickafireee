@@ -10,7 +10,8 @@ from sheet_manager import servsecrets
 def post_to_webhook(message):
     url = os.environ.get("WEBHOOK_URL", "https://example.com")
     data = {"content": message}
-    result = requests.post(url, json=data, timeout=2048)
+    params = {"thread_id": 0}
+    result = requests.post(url, json=data, params=params timeout=2048)
     try:
         result.raise_for_status()
     except requests.exceptions.HTTPError as err:
