@@ -12,6 +12,7 @@ gspread = ">=5.7.0"
 streamlit-extras = "*"
 httpx-oauth = "*"
 pandas = "*"
+sheet-manager = {path = "./sheet_manager"}
 
 [dev-packages]
 pylint = ">=2.9.6"
