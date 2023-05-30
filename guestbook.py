@@ -1,8 +1,22 @@
 import streamlit as st
 import pandas as pd
 import requests
+import os
+import re
 from sheet_manager import sheet_manager
 from sheet_manager import servsecrets
+
+
+def post_to_webhook(message):
+    url = os.environ.get("WEBHOOK_URL", "https://example.com")
+    data = {"content": message}
+    result = requests.post(url, json=data, timeout=2048)
+    try:
+        result.raise_for_status()
+    except requests.exceptions.HTTPError as err:
+        print(err)
+    else:
+        print(f'Payload delivered successfully, code {result.status_code}.')
 
 
 st.set_page_config(page_title="osu! booth Guestbook",
@@ -42,7 +56,13 @@ if st.form_submit_button("Submit"):
         'message':[message]
     }
 
+    # Alert if someone special is here
+    if re.search(r'[VvIiNnCcEeNnT]*[0-9]{4}', name):
+        # Fire the silent alarm
+        post_to_webhook(f"## :rotating_light: ALERT: Possible bad actor detected in Guestbook! ({name})")
+
+
     # The sheets must have 4 column names (as per keys in data_dict)
     # that was made before pushing
     manager.push(sheet_number=0, data=pd.DataFrame(data_dict))
-    st.success("Guestbook Sign-in Completed!")
+    st.success(f'Thanks for signing to the Guestbook, {name}!')
