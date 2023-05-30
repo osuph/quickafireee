@@ -41,7 +41,7 @@ days_attending = st.selectbox("What Day are you attending?",
                               ["Day 1", "Day 2", "Day 3", "All Days"])
 message = st.text_area("Leave a message for us!")
 
-if st.form_submit_button("Submit"):
+if st.button("Submit"):
 
     # GSheets.sheets_key should be changed to another secret key-value pair
     # To denote another GSheets file for Guest Logbook
