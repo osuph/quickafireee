@@ -55,7 +55,7 @@ with st.form('guestbook', clear_on_submit=True):
             'name': [name],
             'days_attending': [days_attending],
             'message': [message],
-            'ts': [datetime.datetime.now()]
+            'ts': [str(datetime.datetime.now())]
         }
 
         # Alert if someone special is here
