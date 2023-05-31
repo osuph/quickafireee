@@ -60,6 +60,6 @@ with st.form("registration_form"):
                 )
             )
 
-            manager.push(sheet_number=0, data=pd.DataFrame(data_dict))
+            manager.push_data(sheet_number=0, data=pd.DataFrame(data_dict))
             st.success("Thank you for registering! The tournament staff will get in touch with you soon.")
 

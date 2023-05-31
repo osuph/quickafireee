@@ -83,6 +83,5 @@ else:
     st.markdown("# osu!Quickfire Registration")
     st.write(
         f"Please authorize this app to use your osu! account by clicking [here]({auth_url})")
-    st.write("
-             You will be redirected to a page where you can authorize this app to access your osu! account.")
+    st.write("You will be redirected to a page where you can authorize this app to access your osu! account.")
     st.write("Once you have authorized this app, you will be redirected back to this page. Please click the button below to continue.")
