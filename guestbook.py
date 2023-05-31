@@ -1,8 +1,9 @@
+import os
+import re
+from datetime import date, time
 import streamlit as st
 import pandas as pd
 import requests
-import os
-import re
 from sheet_manager import sheet_manager
 from sheet_manager import servsecrets
 
@@ -40,7 +41,7 @@ with st.form('guestbook', clear_on_submit=True):
     is_osu_user = st.checkbox("Are you an osu! player?")
     name = st.text_input("Your Name (doesn't have to be your real name)")
     days_attending = st.selectbox("What Day are you attending?",
-                              ["Day 1", "Day 2", "Day 3", "All Days"])
+                                  ["Day 1", "Day 2", "Day 3", "All Days"])
     message = st.text_area("Leave a message for us!")
 
     if st.form_submit_button("Submit"):
@@ -53,7 +54,8 @@ with st.form('guestbook', clear_on_submit=True):
             'is_osu_user': [is_osu_user],
             'name': [name],
             'days_attending': [days_attending],
-            'message': [message]
+            'message': [message],
+            'ts': [f"{date.today().strftime('%m/%d/%Y')} {time().strftime('%H:%M:%S')}"]
         }
 
         # Alert if someone special is here
