@@ -43,11 +43,9 @@ message = st.text_area("Leave a message for us!")
 
 if st.button("Submit"):
 
-    # GSheets.sheets_key should be changed to another secret key-value pair
-    # To denote another GSheets file for Guest Logbook
     manager = sheet_manager.SheetManager(
         creds = servsecrets.service_acct_creds,
-        sheets_key = st.secrets.GSheets.sheets_key
+        sheets_key = st.secrets.GSheets.guestbook_sheets_key
     )
 
     data_dict = {
@@ -65,5 +63,5 @@ if st.button("Submit"):
 
     # The sheets must have 4 column names (as per keys in data_dict)
     # that was made before pushing
-    manager.push(sheet_number=0, data=pd.DataFrame(data_dict))
+    manager.push_data(sheet_number=0, data=pd.DataFrame(data_dict))
     st.success(f'Thanks for signing to the Guestbook, {name}!')
