@@ -16,7 +16,7 @@ def post_to_webhook(message):
     try:
         result.raise_for_status()
     except requests.exceptions.HTTPError as err:
-        print(err)
+        return Exception(err)
     else:
         print(f'Payload delivered successfully, code {result.status_code}.')
 
