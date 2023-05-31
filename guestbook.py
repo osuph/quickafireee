@@ -9,9 +9,9 @@ from sheet_manager import servsecrets
 
 
 def post_to_webhook(message):
-    url = os.environ.get("WEBHOOK_URL", "https://example.com")
+    url = os.environ.get("WEBHOOK_URL", "https://example.com") or "https://example.com"
     data = {"content": message}
-    params = {"thread_id": os.environ.get("WEBHOOK_THREAD_ID", "0")}
+    params = {"thread_id": os.environ.get("WEBHOOK_THREAD_ID", "0") or "0"}
     result = requests.post(url, json=data, params=params, timeout=2048)
     try:
         result.raise_for_status()
