@@ -1,6 +1,6 @@
 import os
 import re
-from datetime import date, time
+import datetime
 import streamlit as st
 import pandas as pd
 import requests
@@ -55,7 +55,7 @@ with st.form('guestbook', clear_on_submit=True):
             'name': [name],
             'days_attending': [days_attending],
             'message': [message],
-            'ts': [f"{date.today().strftime('%m/%d/%Y')} {time().strftime('%H:%M:%S')}"]
+            'ts': [datetime.datetime.now()]
         }
 
         # Alert if someone special is here
