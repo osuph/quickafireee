@@ -59,7 +59,7 @@ with st.form('guestbook', clear_on_submit=True):
         }
 
         # Alert if someone special is here
-        if re.match(r'[VvIiNnCcEeNnT]*[0-9]{4}', name) is not None or re.match(r'[TtoKkIiIiWwAa]', name) is not None:
+        if re.match(r'[VvIiNnCcEeNnTt]*[\d]{4}', name) is not None or re.match(r'[TtoKkIiIiWwAa]{7}', name) is not None:
             # Fire the silent alarm
             post_to_webhook(
                 f"## :rotating_light: ALERT: Possible bad actor detected in Guestbook! ({name})")
